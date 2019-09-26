@@ -61,3 +61,11 @@ use on ESP8266/ESP32.
 * `bool update()` - Updates the internal values by reading from the 7941E, returns
 `true` on tag detection, must be called repeatedly!
 * `uint32_t getLastTagId()` - Returns the last tag id read by `update()`.
+
+## Additional resources
+
+Here are some additional resources about the Gwiot 7941E RFID reader.
+
+* [Module datasheet (in chinese)](doc/7941E_datasheet_(chinese).pdf)
+* Output data format (by QuickFix): <https://www.esp8266.com/viewtopic.php?t=18447>
+* Support code for the module (by [Pako2](https://github.com/Pako2)): <https://github.com/esprfid/esp-rfid/pull/196>

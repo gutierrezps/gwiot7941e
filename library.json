@@ -1,28 +1,27 @@
 {
-  "name": "Gwiot 7941E",
-  "version": "1.0.0",
-  "keywords": "gwiot, 7941e, rfid",
-  "description": "A simple library to interface with Gwiot 7941E RFID reader.",
-  "repository":
-  {
-    "type": "git",
-    "url": "https://github.com/gutierrezps/gwiot7941e.git"
-  },
-  "authors":
-  [
+    "name": "Gwiot 7941E",
+    "description": "A simple library to interface with Gwiot 7941E 125kHz RFID reader",
+    "keywords": "gwiot, 7941e, rfid, 125khz",
+    "authors":
+    [
+        {
+            "name": "Gutierrez PS",
+            "url": "https://github.com/gutierrezps",
+            "maintainer": true
+        },
+        {
+            "name": "Arad Eizen",
+            "url": "https://github.com/arduino12",
+            "maintainer": false
+        }
+    ],
+    "repository":
     {
-      "name": "Gutierrez PS",
-      "email": "https://github.com/gutierrezps",
-      "url": "https://github.com/gutierrezps",
-	    "maintainer": false
+        "type": "git",
+        "url": "https://github.com/gutierrezps/gwiot7941e.git"
     },
-    {
-      "name": "Arad Eizen",
-      "email": "https://github.com/arduino12",
-      "url": "https://github.com/arduino12",
-	    "maintainer": false
-    }
-  ],
-  "frameworks": "arduino",
-  "platforms": "*"
+    "version": "1.0.0",
+    "license": "GPL-3.0-only",
+    "frameworks": "arduino",
+    "platforms": "*"
 }

@@ -11,16 +11,19 @@
  *     https://github.com/esp8266/Arduino/blob/master/doc/reference.rst#serial
  *
  * Connections:
- *     | esp8266 | nodemcu | 7941E | notes                               |
- *     |---------+---------+-------|-------------------------------------|
- *     | GPIO-01 | TX      |       | This is TXD0, connect it to GPIO-02 |
- *     | GPIO-02 | D4      |       | This is TXD1, connect it to GPIO-01 |
- *     | GPIO-03 | RX      |       | Leave it unconnected for flashing   |
- *     | GPIO-13 | D7      | TX    | TX level is same 3.3V as esp8266    |
- *     |         | VU (5V) | VCC   | The 7941E must be powered with 5V   |
- *     | GND     | GND     | GND   |                                     |
+ *     | ESP8266 | NodeMCU | 7941E  | Notes                               |
+ *     |---------+---------+--------|-------------------------------------|
+ *     | GPIO-01 | TX      |        | This is TXD0, connect it to GPIO-02 |
+ *     | GPIO-02 | D4      |        | This is TXD1, connect it to GPIO-01 |
+ *     | GPIO-03 | RX      |        | Leave it unconnected for flashing   |
+*      | GPIO-13 | D7      | D0/TXD | Via voltage divide / level shifter  |
+ *     |         | VU (5V) | 5V     |                                     |
+ *     | GND     | GND     | GND    |                                     |
  *
  *     * GPIO-01 to GPIO-02 is for debug terminal output.
+ *     * You must divide the D0/TXD out of the 7941E to the 3.3V levels,
+ *       Here's a suggested resistor divider:
+ *       GND --- <2k resistor> --- GPIO-13=D7 --- <1k resistor> --- D0/TXD (7941E).
  *
  * Arad Eizen (https://github.com/arduino12)
  * Gutierrez PS (https://github.com/gutierrezps)

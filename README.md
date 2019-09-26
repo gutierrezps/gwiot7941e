@@ -31,7 +31,6 @@ A simple RFID tag reader with textual serial output:
 * ```void begin(int rxPin, uint8_t uartNum=1)``` - Initialize the object to use the given GPIO pin as RX from the 7941E.
 * ```bool update()``` - Updates the internal values by reading from the 7941E, returns true on tag detection, must be called repeatedly!
 * ```uint32_t getTagId()``` - Returns the last tag id read by ```update```- can be called only once after ```update```.
-* ```bool isTagNear()``` -  Returns whether a tag is currently held near the antenna- can be called many times after ```update```.
 
 ## Enjoy
 

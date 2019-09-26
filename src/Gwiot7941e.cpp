@@ -104,24 +104,8 @@ bool Gwiot7941e::update(void)
     }
     if (checksum) return false;
 
-    // if a new tag appears- return it
-    if (lastTagId_ != tagId) {
-        lastTagId_ = tagId;
-        lastReadMillis_ = 0;
-    }
-    // if the old tag is still here set tagId to zero
-    if (isTagNear()) tagId = 0;
-    lastReadMillis_ = millis();
-
     tagId_ = tagId;
     return tagId;
-}
-
-
-
-bool Gwiot7941e::isTagNear(void)
-{
-    return millis() - lastReadMillis_ < GWIOT_7941E_NEXT_READ_MS;
 }
 
 

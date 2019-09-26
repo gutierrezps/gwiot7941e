@@ -15,7 +15,6 @@ begin       KEYWORD2
 end         KEYWORD2
 update      KEYWORD2
 getTagId    KEYWORD2
-isTagNear   KEYWORD2
 
 #######################################
 # Constants (LITERAL1)

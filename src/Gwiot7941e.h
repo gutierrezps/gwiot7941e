@@ -44,7 +44,6 @@ public:
     void end();
     bool update();
     uint32_t getTagId();
-    bool isTagNear();
 
 private:
 #ifdef GWIOT_7941E_HARDWARE_SERIAL
@@ -57,8 +56,6 @@ private:
 
     Stream *stream_ = NULL;
     uint32_t tagId_ = 0;
-    uint32_t lastTagId_ = 0;
-    uint32_t lastReadMillis_ = 0;
 };
 
 #endif

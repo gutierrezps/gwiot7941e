@@ -53,7 +53,5 @@ void loop()
         Serial1.println(gwiot7941e.getTagId(), HEX);
     }
 
-    digitalWrite(READ_LED_PIN, gwiot7941e.isTagNear());
-
     delay(10);
 }

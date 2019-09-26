@@ -67,7 +67,6 @@ bool Gwiot7941e::update(void)
 {
     char buff[GWIOT_7941E_PACKET_SIZE];
     uint32_t tagId;
-    uint8_t checksum;
 
     if (!stream_) return false;
 
@@ -84,25 +83,20 @@ bool Gwiot7941e::update(void)
     }
 
     // if a packet doesn't end with the right byte, drop it
-    if (buff[13] != GWIOT_7941E_PACKET_END) {
-        return false;
-    }
+    if (buff[9] != GWIOT_7941E_PACKET_END) return false;
 
-    // add null and parse checksum
-    buff[13] = 0;
-    checksum = strtol(buff + 11, NULL, 16);
-    // add null and parse tagId
-    buff[11] = 0;
-    tagId = strtol(buff + 3, NULL, 16);
-    // add null and parse version (needs to be xored with checksum)
-    buff[3] = 0;
-    checksum ^= strtol(buff + 1, NULL, 16);
-
-    // XOR the tagId and validate checksum
-    for (uint8_t i = 0; i < 32; i += 8) {
-        checksum ^= ((tagId >> i) & 0xFF);
+    // calculate checksum (excluding start and end bytes)
+    uint8_t checksum = 0;
+    for (uint8_t i = 1; i <= 8; ++i) {
+        checksum ^= buff[i];
     }
     if (checksum) return false;
+
+    tagId = 0;
+    for (uint8_t i = 0; i <= 3; ++i) {
+        uint32_t val = (uint8_t) buff[i+4];
+        tagId |= val << (8 * (3 - i));
+    }
 
     tagId_ = tagId;
     return tagId;

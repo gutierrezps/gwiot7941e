@@ -1,12 +1,12 @@
 #######################################
-# Syntax Coloring Map Rdm6300
+# Syntax Coloring Map Gwiot7941e
 #######################################
 
 #######################################
 # Datatypes (KEYWORD1)
 #######################################
 
-Rdm6300	KEYWORD1
+Gwiot7941e	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
@@ -20,9 +20,9 @@ is_tag_near	KEYWORD2
 #######################################
 # Constants (LITERAL1)
 #######################################
-RDM6300_BAUDRATE		LITERAL1
-RDM6300_PACKET_SIZE		LITERAL1
-RDM6300_PACKET_BEGIN	LITERAL1
-RDM6300_PACKET_END		LITERAL1
-RDM6300_NEXT_READ_MS	LITERAL1
-RDM6300_READ_TIMEOUT	LITERAL1
+GWIOT_7941E_BAUDRATE		LITERAL1
+GWIOT_7941E_PACKET_SIZE		LITERAL1
+GWIOT_7941E_PACKET_BEGIN	LITERAL1
+GWIOT_7941E_PACKET_END		LITERAL1
+GWIOT_7941E_NEXT_READ_MS	LITERAL1
+GWIOT_7941E_READ_TIMEOUT	LITERAL1

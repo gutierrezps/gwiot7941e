@@ -1,19 +1,20 @@
 /*
- * A simple example to interface with rdm6300 rfid reader.
+ * A simple example to interface with Gwiot 7941E RFID reader.
  *
- * Connect the rdm6300 to VCC=5V, GND=GND, TX=any GPIO (this case GPIO-04)
- * Note that the rdm6300's TX line is 3.3V level,
+ * Connect the 7941E to VCC=5V, GND=GND, TX=any GPIO (this case GPIO-04)
+ * Note that the 7941E's TX line is 3.3V level,
  * so it's save to use with both AVR* and ESP* microcontrollers.
  *
- * Arad Eizen (https://github.com/arduino12).
+ * Arad Eizen (https://github.com/arduino12)
+ * Gutierrez PS (https://github.com/gutierrezps)
  */
 
-#include <rdm6300.h>
+#include <Gwiot7941e.h>
 
-#define RDM6300_RX_PIN 4
+#define GWIOT_7941E_RX_PIN 4
 #define READ_LED_PIN 13
 
-Rdm6300 rdm6300;
+Gwiot7941e gwiot7941e;
 
 void setup()
 {
@@ -22,18 +23,18 @@ void setup()
 	pinMode(READ_LED_PIN, OUTPUT);
 	digitalWrite(READ_LED_PIN, LOW);
 
-	rdm6300.begin(RDM6300_RX_PIN);
+	gwiot7941e.begin(GWIOT_7941E_RX_PIN);
 
-	Serial.println("\nPlace RFID tag near the rdm6300...");
+	Serial.println("\nPlace RFID tag near the 7941E...");
 }
 
 void loop()
 {
 	/* if non-zero tag_id, update() returns true- a new tag is near! */
-	if (rdm6300.update())
-		Serial.println(rdm6300.get_tag_id(), HEX);
+	if (gwiot7941e.update())
+		Serial.println(gwiot7941e.get_tag_id(), HEX);
 
-	digitalWrite(READ_LED_PIN, rdm6300.is_tag_near());
+	digitalWrite(READ_LED_PIN, gwiot7941e.is_tag_near());
 
 	delay(10);
 }

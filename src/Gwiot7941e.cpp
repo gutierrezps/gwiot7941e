@@ -1,60 +1,62 @@
 /*
- * A simple library to interface with rdm6300 rfid reader.
- * Arad Eizen (https://github.com/arduino12).
+ * A simple library to interface with Gwiot 7941E RFID reader.
+ * 
+ * Arad Eizen (https://github.com/arduino12)
+ * Gutierrez PS (https://github.com/gutierrezps)
  */
 
-#include "rdm6300.h"
+#include "Gwiot7941e.h"
 #include <Arduino.h>
 
 
-void Rdm6300::begin(Stream *stream)
+void Gwiot7941e::begin(Stream *stream)
 {
 	_stream = stream;
 	if (!_stream)
 		return;
-	_stream->setTimeout(RDM6300_READ_TIMEOUT);
+	_stream->setTimeout(GWIOT_7941E_READ_TIMEOUT);
 }
 
-void Rdm6300::begin(int rx_pin, uint8_t uart_nr)
+void Gwiot7941e::begin(int rx_pin, uint8_t uart_nr)
 {
-	/* init serial port to rdm6300 baud, without TX, and 20ms read timeout */
+	/* init serial port to 7941E baud, without TX, and 20ms read timeout */
 	end();
 #if defined(ARDUINO_ARCH_ESP32)
 	_stream = _hardware_serial = new HardwareSerial(uart_nr);
-	_hardware_serial->begin(RDM6300_BAUDRATE, SERIAL_8N1, rx_pin, -1);
+	_hardware_serial->begin(GWIOT_7941E_BAUDRATE, SERIAL_8N1, rx_pin, -1);
 #elif defined(ARDUINO_ARCH_ESP8266)
 	if (rx_pin == 13) {
 		_stream = _hardware_serial = &Serial;
-		_hardware_serial->begin(RDM6300_BAUDRATE, SERIAL_8N1, SERIAL_RX_ONLY);
+		_hardware_serial->begin(GWIOT_7941E_BAUDRATE, SERIAL_8N1, SERIAL_RX_ONLY);
 		if (uart_nr)
 			_hardware_serial->swap();
 	}
 #endif
-#ifdef RDM6300_SOFTWARE_SERIAL
+#ifdef GWIOT_7941E_SOFTWARE_SERIAL
 	if (!_stream) {
 		_stream = _software_serial = new SoftwareSerial(rx_pin, -1);
-		_software_serial->begin(RDM6300_BAUDRATE);
+		_software_serial->begin(GWIOT_7941E_BAUDRATE);
 	}
 #endif
 	begin(_stream);
 }
 
-void Rdm6300::end()
+void Gwiot7941e::end()
 {
 	_stream = NULL;
-#ifdef RDM6300_HARDWARE_SERIAL
+#ifdef GWIOT_7941E_HARDWARE_SERIAL
 	if (_hardware_serial)
 		_hardware_serial->end();
 #endif
-#ifdef RDM6300_SOFTWARE_SERIAL
+#ifdef GWIOT_7941E_SOFTWARE_SERIAL
 	if (_software_serial)
 		_software_serial->end();
 #endif
 }
 
-bool Rdm6300::update(void)
+bool Gwiot7941e::update(void)
 {
-	char buff[RDM6300_PACKET_SIZE];
+	char buff[GWIOT_7941E_PACKET_SIZE];
 	uint32_t tag_id;
 	uint8_t checksum;
 
@@ -65,15 +67,15 @@ bool Rdm6300::update(void)
 		return false;
 
 	/* if a packet doesn't begin with the right byte, remove that byte */
-	if (_stream->peek() != RDM6300_PACKET_BEGIN && _stream->read())
+	if (_stream->peek() != GWIOT_7941E_PACKET_BEGIN && _stream->read())
 		return false;
 
 	/* if read a packet with the wrong size, drop it */
-	if (RDM6300_PACKET_SIZE != _stream->readBytes(buff, RDM6300_PACKET_SIZE))
+	if (GWIOT_7941E_PACKET_SIZE != _stream->readBytes(buff, GWIOT_7941E_PACKET_SIZE))
 		return false;
 
 	/* if a packet doesn't end with the right byte, drop it */
-	if (buff[13] != RDM6300_PACKET_END)
+	if (buff[13] != GWIOT_7941E_PACKET_END)
 		return false;
 
 	/* add null and parse checksum */
@@ -106,12 +108,12 @@ bool Rdm6300::update(void)
 	return tag_id;
 }
 
-bool Rdm6300::is_tag_near(void)
+bool Gwiot7941e::is_tag_near(void)
 {
-	return millis() - _last_read_ms < RDM6300_NEXT_READ_MS;
+	return millis() - _last_read_ms < GWIOT_7941E_NEXT_READ_MS;
 }
 
-uint32_t Rdm6300::get_tag_id(void)
+uint32_t Gwiot7941e::get_tag_id(void)
 {
 	uint32_t tag_id = _tag_id;
 	_tag_id = 0;

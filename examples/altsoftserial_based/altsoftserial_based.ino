@@ -1,5 +1,5 @@
 /*
- * A simple example to interface with rdm6300 rfid reader using AltSoftSerial.
+ * A simple example to interface with Gwiot 7941E RFID reader using AltSoftSerial.
  * We use AltSoftSerial uart instead of the default software uart driver.
  *
  * Connections:
@@ -14,16 +14,17 @@
  *     | Wiring-S         |      6 |            4 |            5 |
  *     | Sanguino         |     14 |           12 |           13 |
  *
- * Arad Eizen (https://github.com/arduino12).
+ * Arad Eizen (https://github.com/arduino12)
+ * Gutierrez PS (https://github.com/gutierrezps)
  */
 
-#include <rdm6300.h>
+#include <Gwiot7941e.h>
 #include <AltSoftSerial.h>
 
-#define RDM6300_RX_PIN 8
+#define GWIOT_7941E_RX_PIN 8
 #define READ_LED_PIN 13
 
-Rdm6300 rdm6300;
+Gwiot7941e gwiot7941e;
 AltSoftSerial alt_soft_serial;
 
 
@@ -34,19 +35,19 @@ void setup()
 	pinMode(READ_LED_PIN, OUTPUT);
 	digitalWrite(READ_LED_PIN, LOW);
 
-	alt_soft_serial.begin(RDM6300_BAUDRATE);
-	rdm6300.begin(&alt_soft_serial);
+	alt_soft_serial.begin(GWIOT_7941E_BAUDRATE);
+	gwiot7941e.begin(&alt_soft_serial);
 
-	Serial.println("\nPlace RFID tag near the rdm6300...");
+	Serial.println("\nPlace RFID tag near the 7941E...");
 }
 
 void loop()
 {
 	/* if non-zero tag_id, update() returns true- a new tag is near! */
-	if (rdm6300.update())
-		Serial.println(rdm6300.get_tag_id(), HEX);
+	if (gwiot7941e.update())
+		Serial.println(gwiot7941e.get_tag_id(), HEX);
 
-	digitalWrite(READ_LED_PIN, rdm6300.is_tag_near());
+	digitalWrite(READ_LED_PIN, gwiot7941e.is_tag_near());
 
 	delay(10);
 }

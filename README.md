@@ -21,6 +21,8 @@ support
 * Microcontroller (Arduino, ESP8266, ESP32...)
 * Jump-Wires (resistors of 1k and 2k if you are using a 3.3V based microcontroller).
 
+![7941E connections](doc/7941e_connections.png "7941E connections")
+
 ### Software
 
 A simple RFID tag reader with textual Serial output:

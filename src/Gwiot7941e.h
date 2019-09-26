@@ -32,7 +32,6 @@
 #define GWIOT_7941E_PACKET_SIZE     10
 #define GWIOT_7941E_PACKET_BEGIN    0x02
 #define GWIOT_7941E_PACKET_END      0x03
-#define GWIOT_7941E_NEXT_READ_MS    220
 #define GWIOT_7941E_READ_TIMEOUT    20
 
 
@@ -43,7 +42,7 @@ public:
     void begin(int rxPin, uint8_t uartNum=1);
     void end();
     bool update();
-    uint32_t getTagId();
+    uint32_t getLastTagId() { return lastTagId_; }
 
 private:
 #ifdef GWIOT_7941E_HARDWARE_SERIAL
@@ -55,7 +54,7 @@ private:
 #endif
 
     Stream *stream_ = NULL;
-    uint32_t tagId_ = 0;
+    uint32_t lastTagId_ = 0;
 };
 
 #endif

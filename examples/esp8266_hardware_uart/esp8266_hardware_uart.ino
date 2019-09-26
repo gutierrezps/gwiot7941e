@@ -51,9 +51,9 @@ void setup()
 
 void loop()
 {
-    // if non-zero tag_id, update() returns true- a new tag is near!
+    // if non-zero tag_id, update() returns true - a tag was read!
     if (gwiot7941e.update()) {
-        Serial1.println(gwiot7941e.getTagId(), HEX);
+        Serial1.println(gwiot7941e.getLastTagId(), HEX);
     }
 
     delay(10);

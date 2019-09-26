@@ -11,10 +11,10 @@ Gwiot7941e	KEYWORD1
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
-begin       KEYWORD2
-end         KEYWORD2
-update      KEYWORD2
-getTagId    KEYWORD2
+begin           KEYWORD2
+end             KEYWORD2
+update          KEYWORD2
+getLastTagId    KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
@@ -23,5 +23,4 @@ GWIOT_7941E_BAUDRATE        LITERAL1
 GWIOT_7941E_PACKET_SIZE     LITERAL1
 GWIOT_7941E_PACKET_BEGIN    LITERAL1
 GWIOT_7941E_PACKET_END      LITERAL1
-GWIOT_7941E_NEXT_READ_MS    LITERAL1
 GWIOT_7941E_READ_TIMEOUT    LITERAL1

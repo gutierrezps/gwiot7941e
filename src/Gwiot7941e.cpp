@@ -63,10 +63,9 @@ void Gwiot7941e::end()
 
 
 
-bool Gwiot7941e::update(void)
+bool Gwiot7941e::update()
 {
     char buff[GWIOT_7941E_PACKET_SIZE];
-    uint32_t tagId;
 
     if (!stream_) return false;
 
@@ -92,21 +91,12 @@ bool Gwiot7941e::update(void)
     }
     if (checksum) return false;
 
-    tagId = 0;
+    // extract tag id from message
+    lastTagId_ = 0;
     for (uint8_t i = 0; i <= 3; ++i) {
         uint32_t val = (uint8_t) buff[i+4];
-        tagId |= val << (8 * (3 - i));
+        lastTagId_ |= val << (8 * (3 - i));
     }
 
-    tagId_ = tagId;
-    return tagId;
-}
-
-
-
-uint32_t Gwiot7941e::getTagId(void)
-{
-    uint32_t tagId = tagId_;
-    tagId_ = 0;
-    return tagId;
+    return lastTagId_;
 }

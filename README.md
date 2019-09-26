@@ -45,7 +45,7 @@ void loop()
 {
     //...
     if (gwiot7941e.update()) {
-        Serial.println(gwiot7941e.getTagId(), HEX);
+        Serial.println(gwiot7941e.getLastTagId(), HEX);
     }
     //...
 }
@@ -56,8 +56,8 @@ void loop()
 * `void begin(Stream *stream)` - Initialize the object to use the given Stream
 (i.e. an `AltSoftSerial` object) to read from the 7941E.
 * `void begin(int rxPin, uint8_t uartNum=1)` - Initialize the object to use the
-given GPIO pin as RX from the 7941E.
+given GPIO pin as RX from the 7941E. Use `uartNum` to specify which Serial to
+use on ESP8266/ESP32.
 * `bool update()` - Updates the internal values by reading from the 7941E, returns
 `true` on tag detection, must be called repeatedly!
-* `uint32_t getTagId()` - Returns the last tag id read by `update()` - can
-be called only once after `update()`.
+* `uint32_t getLastTagId()` - Returns the last tag id read by `update()`.

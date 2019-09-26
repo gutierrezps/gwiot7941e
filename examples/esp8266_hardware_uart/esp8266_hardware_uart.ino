@@ -1,4 +1,4 @@
-/*
+/**
  * A simple example to interface with Gwiot 7941E RFID reader using esp8266.
  * We use hardware uart "Serial" instead of the default software uart driver.
  *
@@ -35,24 +35,25 @@ Gwiot7941e gwiot7941e;
 
 void setup()
 {
-	/* Serial1 is the debug! remember to bridge GPIO-01 to GPIO-02 */
-	Serial1.begin(115200);
+    // Serial1 is the debug! remember to bridge GPIO-01 to GPIO-02
+    Serial1.begin(115200);
 
-	pinMode(READ_LED_PIN, OUTPUT);
-	digitalWrite(READ_LED_PIN, LOW);
+    pinMode(READ_LED_PIN, OUTPUT);
+    digitalWrite(READ_LED_PIN, LOW);
 
-	gwiot7941e.begin(GWIOT_7941E_RX_PIN);
+    gwiot7941e.begin(GWIOT_7941E_RX_PIN);
 
-	Serial1.println("\nPlace RFID tag near the 7941E...");
+    Serial1.println("\nPlace RFID tag near the 7941E...");
 }
 
 void loop()
 {
-	/* if non-zero tag_id, update() returns true- a new tag is near! */
-	if (gwiot7941e.update())
-		Serial1.println(gwiot7941e.get_tag_id(), HEX);
+    // if non-zero tag_id, update() returns true- a new tag is near!
+    if (gwiot7941e.update()) {
+        Serial1.println(gwiot7941e.getTagId(), HEX);
+    }
 
-	digitalWrite(READ_LED_PIN, gwiot7941e.is_tag_near());
+    digitalWrite(READ_LED_PIN, gwiot7941e.isTagNear());
 
-	delay(10);
+    delay(10);
 }
